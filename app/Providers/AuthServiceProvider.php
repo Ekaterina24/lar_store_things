@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +27,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('view-protected-part', function (User $user) {
+//            return $user->username == 'katrik';
+            if ($user && $user->username === 'katrik') {
+                return Response::allow('Вам разрешено');
+            }
+            return Response::deny('Вам запрещено');
+        });
     }
 }

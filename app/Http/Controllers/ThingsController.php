@@ -64,20 +64,33 @@ class ThingsController extends Controller
         return redirect(route('things'));
     }
 
-    public function getAnotherThings($user_id)
-    {
-        $things = Auth::user()->things();
-        return view('things.another', compact('things'));
-    }
-
     public function index()
     {
         $user = Auth::user()->id;
         $things = DB::table('things')
             ->select('*')
-            ->where('user_id', '<>', $user)
+//            ->where('user_id', '<>', $user)
+            ->orWhereIn('user_id', Auth::user()->friends()->pluck('id'))
             ->paginate(3);
-//        dd($things);
         return view('things.another', compact('things'));
+    }
+
+
+    public function takeThing($id) {
+        $thing = Thing::findOrFail($id);
+//        Auth::user()->create([
+//            'user_id' => $thing->requestUser(),
+//            'thing_id' => $thing->requestThing()
+//        ]);
+
+//        dd($thing->requestThing());
+//        $thing = Auth::user()->requests();
+//        dd($thing->requestThing());
+        return redirect(route('things.another'))->with('info', "Запрос на вещь $thing->name отправлен.");
+    }
+
+    public function requestsOnThings($id) {
+//        $thing = Thing::findOrFail($id);
+//        return redirect(route('things.another'))->with('info', "Запрос отправлен на вещь $thing->name.");
     }
 }

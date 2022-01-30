@@ -14,6 +14,11 @@
                     <small class="text-muted">
                         Пользователь: {{ $thing->user_id }}
                     </small>
+                    <form action="{{ route('things.take', $thing->id) }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="btn btn-success mt-3">Взять</button>
+                    </form>
                 </a>
             </div>
         @endforeach

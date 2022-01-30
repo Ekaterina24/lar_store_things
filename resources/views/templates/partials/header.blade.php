@@ -15,10 +15,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('things.another') }}">Другие вещи</a>
                     </li>
-{{--                    <form method="GET" action="#" class="d-flex ms-2">--}}
-{{--                        <input name="query" class="form-control me-2" type="search" placeholder="Что ищем?" aria-label="Search">--}}
-{{--                        <button class="btn btn-success" type="submit">Найти</button>--}}
-{{--                    </form>--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link" href="#">Запросы</a>--}}
+{{--                    </li>--}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('friends.index') }}">Друзья</a>
+                    </li>
+                    <form method="GET" action="{{ route('search.results') }}" class="d-flex ms-2">
+                        <input name="query" class="form-control me-2" type="search" placeholder="Что ищем?" aria-label="Search">
+                        <button class="btn btn-success" type="submit">Найти</button>
+                    </form>
                 </ul>
             @endif
             <ul class="navbar-nav ms-auto">
@@ -28,11 +34,12 @@
                            class="nav-link">{{ Auth::user()->getUsername() }}</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Обновить профиль</a>
+                        <a href="{{ route('profile.edit') }}" class="nav-link">Обновить профиль</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('auth.signout') }}" class="nav-link">Выйти</a>
                     </li>
+                    <li class="nav-item"><a href="{{ route('inner') }}" class="nav-link">Защищенный раздел</a></li>
                 @else
                     <li class="nav-item"><a href="{{ route('auth.signup') }}" class="nav-link">Зарегистрироваться</a></li>
                     <li class="nav-item"><a href="{{ route('auth.signin') }}" class="nav-link">Войти</a></li>

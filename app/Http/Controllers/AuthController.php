@@ -41,6 +41,9 @@ class AuthController extends Controller
         if (auth('web')->attempt($data)) {
             return redirect(route('home'))->with('info', 'Вы вошли на сайт.');
         }
+//        if (auth('admin')->attempt($data)) {
+//            return redirect(route('home'))->with('info', 'Вы вошли на сайт.');
+//        }
 
         return redirect(route('auth.signin'))->with('info', 'Неправильный логин или пароль.');
     }
