@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/another_things/take/{id}', [\App\Http\Controllers\ThingsController::class, 'takeThing'])->name('things.take');
     Route::post('/another_things/requests', [\App\Http\Controllers\ThingsController::class, 'requestsOnThings'])->name('things.request');
 
+//    Gate
 
     Route::get('/inner', [\App\Http\Controllers\InnerController::class, 'inner'])->name('inner');
 
@@ -62,4 +64,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

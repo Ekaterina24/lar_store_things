@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //    получить имя и фамилию или имя
+    //    получить логин
     public function getUsername() {
         return $this->username;
     }
@@ -114,11 +114,5 @@ class User extends Authenticatable
     public function isFriendWith(User $user) {
         return (bool) $this->friends()->where('id', $user->id)->count();
     }
-
-//    пользователю принадлежит статус
-    public function statuses() {
-        return $this->hasMany('App\Models\Status', 'user_id');
-    }
-
 
 }

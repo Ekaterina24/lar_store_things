@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InfoMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -19,13 +21,13 @@ class AuthController extends Controller
             'password' => ['required', 'min:6']
         ]);
 
-        User::create([
+        $user = User::create([
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => bcrypt($data['password'])
         ]);
-
-        return redirect(route('home'))->with('info', 'Вы успешно зарегистрировались! Можно войти на сайт.');
+        Mail::to($user['email'])->send(new InfoMail());
+        return redirect(route('welcome'))->with('info', 'Вы успешно зарегистрировались! Можно войти на сайт.');
     }
 
     public function getSignin() {

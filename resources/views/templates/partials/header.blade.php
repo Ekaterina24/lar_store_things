@@ -15,9 +15,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('things.another') }}">Другие вещи</a>
                     </li>
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" href="#">Запросы</a>--}}
-{{--                    </li>--}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('friends.index') }}">Друзья</a>
                     </li>
