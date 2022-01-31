@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendMessage;
 use App\Mail\InfoMail;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class AuthController extends Controller
             'username' => $data['username'],
             'password' => bcrypt($data['password'])
         ]);
-        Mail::to($user['email'])->send(new InfoMail());
+//        SendMessage::dispatch($user);
+        dispatch(new SendMessage($user));
         return redirect(route('welcome'))->with('info', 'Вы успешно зарегистрировались! Можно войти на сайт.');
     }
 
